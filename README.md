@@ -17,8 +17,8 @@ there convert to:
 
 ## Usage
 
-    $ ruby math2review file.md
-    $ md2review file.md > dile.re
+    $ ruby math2review.rb file.md
+    $ md2review file.md > ch01.re
     $ review-pdfmaker config.yml
 
 ## Information
