@@ -2,19 +2,25 @@ filename = ARGV[0]
 
 puts "open " + filename + "..."
 
+is_surrounded_comment_out = 0
 arr = []
 f = open(filename)
 f.each{|text|
 
+is_comment_out = text.index("```")
+if is_comment_out
+    is_surrounded_comment_out += 1
+end
+
 has_single_dollar = text.index("$")
-if has_single_dollar
+if has_single_dollar && (is_surrounded_comment_out%2 == 0)
     has_double_dollar = text.index("$$")
     if has_double_dollar
         is_surrounded_by_double_dollar = text.rindex("$$")
         if is_surrounded_by_double_dollar != has_double_dollar
             #translate to review format
             value = text[has_double_dollar+2..is_surrounded_by_double_dollar-1]
-            result ="//texequation{"+value+"//}"
+            result ="\n//texequation{\n"+value+"\n//}\n"
             if has_double_dollar != 0
                 result = text[0..has_double_dollar-1] + result
             end
